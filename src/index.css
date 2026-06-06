@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Kufi+Arabic:wght@300;400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-arabic: "Noto Kufi Arabic", sans-serif;
+  --font-urdu: "Noto Nastaliq Urdu", "Inter", sans-serif;
+  
+  --color-gold-50: #fbf7e6;
+  --color-gold-100: #f5ebc2;
+  --color-gold-200: #ebd88a;
+  --color-gold-300: #dfbf51;
+  --color-gold-400: #d4a929;
+  --color-gold-500: #bfa12d; /* Primary Gold */
+  --color-gold-600: #a17814;
+  --color-gold-700: #805c0d;
+  --color-gold-800: #604409;
+  --color-gold-900: #422f05;
+  
+  --color-mango-500: #ffb11a;
+  --color-mango-600: #e09100;
+  
+  --color-forest-900: #0d2613; /* Deep Green */
+  --color-forest-950: #051408; /* Extremely Deep Green */
+}
+
+/* Custom styles for luxury styling, scrollbar, and international fonts integration */
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+  background-color: #051408;
+  color: #f3f4f6;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Arabic rendering rules */
+.lang-ar {
+  font-family: var(--font-arabic), sans-serif;
+  direction: rtl;
+}
+
+/* Urdu rendering rules */
+.lang-ur {
+  font-family: var(--font-urdu), "Inter", sans-serif;
+  direction: rtl;
+}
+
+/* Smooth custom gold and forest green scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #051408;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a17814;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #bfa12d;
+}
+
+/* Gold stroke / background highlights */
+.luxury-gold-shimmer {
+  background: linear-gradient(135deg, #bfa12d 0%, #ffdf6d 50%, #a17814 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.luxury-box-border {
+  border: 1px solid rgba(191, 161, 45, 0.3);
+  background: linear-gradient(180deg, rgba(13, 38, 19, 0.8) 0%, rgba(5, 20, 8, 0.95) 100%);
+}
+
+.luxury-gold-glow {
+  box-shadow: 0 0 25px rgba(191, 161, 45, 0.15);
+}

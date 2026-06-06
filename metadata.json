@@ -1,0 +1,6 @@
+{
+  "name": "Zyvex Global Trading",
+  "description": "Premium Pakistani Export-grade Mangoes - Taste of Pakistan, Trusted Worldwide.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
