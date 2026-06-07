@@ -108,6 +108,7 @@ export const translations: Record<Language, Record<string, string>> = {
     successMsg: "Thank you! Your export inquiry has been saved successfully. We will contact your company with a customized price-sheet shortly.",
     successMsgWhatsapp: "You can also contact our team directly via WhatsApp for instant pricing.",
     whatsAppDirect: "Send Custom WhatsApp Message",
+    formValidationError: "Please fill in all required fields (Name, Company, Email, Phone) before submitting.",
     
     // Footer / Contacts
     location: "Head Office: Multan, Pakistan. Distribution: Karachi / Lahore Port Gateways.",
@@ -211,6 +212,7 @@ export const translations: Record<Language, Record<string, string>> = {
     successMsg: "شکریہ! آپ کی انکوائری کامیابی سے رجسٹر کر لی گئی ہے۔ ہماری برآمدی ٹیم جلد آپ سے رابطہ کرے گی۔",
     successMsgWhatsapp: "درآمدی قیمتوں کی فوری معلومات کے لیے آپ واٹس ایپ پر بھی رابطہ کر سکتے ہیں۔",
     whatsAppDirect: "واٹس ایپ پیغام بھیجیں",
+    formValidationError: "براہ کرم فارم جمع کرنے سے پہلے تمام ضروری فیلڈز (نام، کمپنی، ای میل، فون) پُر کریں۔",
     
     location: "ہیڈ آفس: ملتان، پاکستان۔ برآمدی پورٹ گیٹ ویز: کراچی / لاہور ایئرپورٹس۔",
     footerText: "زائیولیکس گلوبل ٹریڈنگ پرائیویٹ لمیٹڈ۔ جملہ حقوق محفوظ ہیں۔ متحدہ عرب امارات، سعودی عرب، قطر، بحرین، کویت اور عمان کے لیے پریمیم آموں کی سپلائی۔",
@@ -313,6 +315,7 @@ export const translations: Record<Language, Record<string, string>> = {
     successMsg: "شكراً لك! تم تسجيل طلب الاستيراد بنجاح. سيقوم فريق الصادرات لدينا بالتواصل مع شركتكم بجدول الأسعار قريباً.",
     successMsgWhatsapp: "يمكنكم أيضاً التواصل المباشر مع فريقنا عبر الواتس آب للحصول على الأسعار الفورية.",
     whatsAppDirect: "إرسال رسالة مباشر عبر الواتس آب",
+    formValidationError: "يرجى ملء جميع الحقول المطلوبة (الاسم، الشركة، البريد الإلكتروني، الهاتف) قبل الإرسال.",
     
     location: "المكتب الرئيسي: مولتان، باكستان. بوابات الشحن الجوي: كراتشي / لاهور.",
     footerText: "شركة زيفيكس العالمية للتجارة المحدودة. جميع الحقوق محفوظة. توريد وتوزيع المانجو الفاخر إلى الإمارات والسعودية وقطر والبحرين والكويت وعمان.",
