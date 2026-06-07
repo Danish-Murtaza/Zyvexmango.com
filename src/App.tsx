@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Globe, 
@@ -48,6 +48,7 @@ export default function App() {
     message: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
 
   // Focus effect for RequestQuote CTA
   const formRef = useRef<HTMLDivElement>(null);
@@ -57,15 +58,27 @@ export default function App() {
     const saved = localStorage.getItem('zyvex_inquiries');
     if (saved) {
       try {
-        setInquiries(JSON.parse(saved));
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          setInquiries(parsed);
+        } else {
+          console.error('Invalid inquiry data in localStorage — expected an array, clearing corrupted data.');
+          localStorage.removeItem('zyvex_inquiries');
+        }
       } catch (e) {
-        console.error(e);
+        console.error('Failed to parse stored inquiries — clearing corrupted data.', e);
+        localStorage.removeItem('zyvex_inquiries');
       }
     }
   }, []);
 
   const t = (key: string): string => {
-    return translations[lang][key] || key;
+    const langMap = translations[lang];
+    if (!langMap) {
+      console.error(`Missing translations for language: ${lang}`);
+      return key;
+    }
+    return langMap[key] || key;
   };
 
   const handleLangChange = (newLang: Language) => {
@@ -90,17 +103,25 @@ export default function App() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+    if (formError) setFormError(null);
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setFormError(null);
+
     if (!formData.name || !formData.company || !formData.email || !formData.phone) {
+      setFormError(t('formValidationError'));
       return;
     }
 
     const updatedInquiries = [formData, ...inquiries];
     setInquiries(updatedInquiries);
-    localStorage.setItem('zyvex_inquiries', JSON.stringify(updatedInquiries));
+    try {
+      localStorage.setItem('zyvex_inquiries', JSON.stringify(updatedInquiries));
+    } catch (storageErr) {
+      console.error('Failed to persist inquiry to localStorage.', storageErr);
+    }
     setIsSubmitted(true);
   };
 
@@ -141,6 +162,18 @@ export default function App() {
     });
     setIsSubmitted(false);
   };
+
+  const handleImageError = useCallback((e: React.SyntheticEvent<HTMLImageElement>) => {
+    const img = e.currentTarget;
+    img.style.display = 'none';
+    const parent = img.parentElement;
+    if (parent && !parent.querySelector('.img-fallback')) {
+      const fallback = document.createElement('div');
+      fallback.className = 'img-fallback w-full h-full flex items-center justify-center bg-forest-900 text-gray-500 text-xs';
+      fallback.textContent = 'Image unavailable';
+      parent.appendChild(fallback);
+    }
+  }, []);
 
   // Switch RTL alignment rules easily
   const isRTL = lang === 'ar' || lang === 'ur';
@@ -389,6 +422,7 @@ export default function App() {
                   alt="Zyvex premium mangoes banner" 
                   className="w-full object-cover aspect-video md:aspect-[4/3] scale-100 group-hover:scale-102 transition-transform duration-700"
                   referrerPolicy="no-referrer"
+                  onError={handleImageError}
                 />
 
                 {/* Overlaid Export Routing Animation Map inside Frame */}
@@ -541,6 +575,7 @@ export default function App() {
                       alt="Export quality premium displays" 
                       className="w-full object-cover aspect-[4/3] group-hover:scale-105 transition-transform duration-500"
                       referrerPolicy="no-referrer"
+                      onError={handleImageError}
                     />
                   </div>
                 </div>
@@ -1065,6 +1100,7 @@ export default function App() {
                         alt={variety.name[lang]} 
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         referrerPolicy="no-referrer"
+                        onError={handleImageError}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                       
@@ -1401,6 +1437,11 @@ export default function App() {
                 </div>
               ) : (
                 <form id="export-inquiry-form" onSubmit={handleFormSubmit} className="space-y-4 text-xs">
+                  {formError && (
+                    <div className="p-3 rounded bg-red-900/40 border border-red-500/40 text-red-300 text-xs font-semibold" role="alert">
+                      {formError}
+                    </div>
+                  )}
                   
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
