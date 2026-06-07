@@ -57,9 +57,16 @@ export default function App() {
     const saved = localStorage.getItem('zyvex_inquiries');
     if (saved) {
       try {
-        setInquiries(JSON.parse(saved));
+        const parsed: InquiryFormData[] = JSON.parse(saved);
+        // Limit stored inquiries to 50 entries to reduce PII exposure
+        const trimmed = parsed.slice(0, 50);
+        setInquiries(trimmed);
+        if (trimmed.length < parsed.length) {
+          localStorage.setItem('zyvex_inquiries', JSON.stringify(trimmed));
+        }
       } catch (e) {
         console.error(e);
+        localStorage.removeItem('zyvex_inquiries');
       }
     }
   }, []);
@@ -1446,7 +1453,7 @@ export default function App() {
                       <label id="label-phone" className="text-gray-300 font-semibold uppercase">{t('formPhone')} *</label>
                       <input 
                         required
-                        type="text" 
+                        type="tel" 
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
@@ -1531,7 +1538,7 @@ export default function App() {
                       id="inquiry-direct-wa-btn"
                       type="button"
                       onClick={() => {
-                        window.open(getWhatsAppLink(), '_blank');
+                        window.open(getWhatsAppLink(), '_blank', 'noopener,noreferrer');
                       }}
                       className="py-3 px-6 rounded border border-emerald-500 text-emerald-400 hover:bg-emerald-500/10 font-bold uppercase tracking-wider transition-all"
                     >
