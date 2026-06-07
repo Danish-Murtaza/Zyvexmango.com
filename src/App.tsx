@@ -15,19 +15,28 @@ import {
   ArrowRight, 
   ShieldCheck, 
   Truck, 
-  Languages, 
   FileText, 
   ExternalLink,
   ChevronRight,
-  Flame,
   Award,
   ThermometerSnowflake,
   Boxes,
-  HelpCircle
 } from 'lucide-react';
 import { Language, InquiryFormData } from './types';
 import { translations } from './translations';
 import { mangoVarieties, targetDestinations } from './data';
+import {
+  SectionHeader,
+  HighlightCard,
+  CapabilityBadge,
+  NumberedValue,
+  CertificationCard,
+  FormField,
+  TimelineStep,
+  ContactItem,
+  ToggleButton,
+  CheckListItem,
+} from './components';
 
 export default function App() {
   const [lang, setLang] = useState<Language>('en');
@@ -182,39 +191,9 @@ export default function App() {
 
             {/* Language Switcher */}
             <div className="flex items-center gap-1 bg-forest-900/60 p-0.5 rounded-full border border-gold-800/40">
-              <button 
-                id="lang-toggle-en"
-                onClick={() => handleLangChange('en')}
-                className={`px-3 py-1 text-[11px] rounded-full font-medium transition-all ${
-                  lang === 'en' 
-                    ? 'bg-gold-500 text-forest-950 font-semibold shadow-inner' 
-                    : 'text-gray-300 hover:text-gold-400'
-                }`}
-              >
-                English
-              </button>
-              <button 
-                id="lang-toggle-ur"
-                onClick={() => handleLangChange('ur')}
-                className={`px-3 py-1 text-[11px] rounded-full font-medium transition-all ${
-                  lang === 'ur' 
-                    ? 'bg-gold-400 text-forest-950 font-semibold shadow-inner' 
-                    : 'text-gray-300 hover:text-gold-400'
-                }`}
-              >
-                اردو
-              </button>
-              <button 
-                id="lang-toggle-ar"
-                onClick={() => handleLangChange('ar')}
-                className={`px-3 py-1 text-[11px] rounded-full font-medium transition-all ${
-                  lang === 'ar' 
-                    ? 'bg-gold-400 text-forest-950 font-semibold shadow-inner' 
-                    : 'text-gray-300 hover:text-gold-400'
-                }`}
-              >
-                عربي
-              </button>
+              <ToggleButton id="lang-toggle-en" label="English" isActive={lang === 'en'} onClick={() => handleLangChange('en')} />
+              <ToggleButton id="lang-toggle-ur" label="اردو" isActive={lang === 'ur'} onClick={() => handleLangChange('ur')} activeClassName="bg-gold-400 text-forest-950 font-semibold shadow-inner" />
+              <ToggleButton id="lang-toggle-ar" label="عربي" isActive={lang === 'ar'} onClick={() => handleLangChange('ar')} activeClassName="bg-gold-400 text-forest-950 font-semibold shadow-inner" />
             </div>
           </div>
 
@@ -308,45 +287,10 @@ export default function App() {
 
             {/* Quick Export Capabilities Row */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-3">
-              <div className="flex items-center gap-2 p-2 rounded border border-gold-800/10 bg-forest-900/30">
-                <div id="badge-air-export" className="w-8 h-8 rounded-full bg-gold-500/15 flex items-center justify-center text-gold-300">
-                  <Truck className="w-4 h-4" />
-                </div>
-                <div>
-                  <h4 className="text-[11px] font-bold uppercase tracking-wide text-white">{t('airExportOnly')}</h4>
-                  <p className="text-[9px] text-gray-400 font-sans">Next-Day Fresh</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 p-2 rounded border border-gold-800/10 bg-forest-900/30">
-                <div id="badge-cold-chain" className="w-8 h-8 rounded-full bg-gold-500/15 flex items-center justify-center text-gold-300">
-                  <ThermometerSnowflake className="w-4 h-4" />
-                </div>
-                <div>
-                  <h4 className="text-[11px] font-bold uppercase tracking-wide text-white">Cold Chain</h4>
-                  <p className="text-[9px] text-gray-400 font-sans">10°C - 13°C</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 p-2 rounded border border-gold-800/10 bg-forest-900/30">
-                <div id="badge-organic" className="w-8 h-8 rounded-full bg-gold-500/15 flex items-center justify-center text-gold-300">
-                  <Award className="w-4 h-4" />
-                </div>
-                <div>
-                  <h4 className="text-[11px] font-bold uppercase tracking-wide text-white">Genuine Grade</h4>
-                  <p className="text-[9px] text-gray-400 font-sans">Double Selected</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 p-2 rounded border border-gold-800/10 bg-forest-900/30">
-                <div id="badge-heat-treated" className="w-8 h-8 rounded-full bg-gold-500/15 flex items-center justify-center text-gold-300">
-                  <ShieldCheck className="w-4 h-4" />
-                </div>
-                <div>
-                  <h4 className="text-[11px] font-bold uppercase tracking-wide text-white">HWT Certified</h4>
-                  <p className="text-[9px] text-gray-400 font-sans">Import Approved</p>
-                </div>
-              </div>
+              <CapabilityBadge id="badge-air-export" icon={<Truck className="w-4 h-4" />} title={t('airExportOnly')} subtitle="Next-Day Fresh" />
+              <CapabilityBadge id="badge-cold-chain" icon={<ThermometerSnowflake className="w-4 h-4" />} title="Cold Chain" subtitle="10°C - 13°C" />
+              <CapabilityBadge id="badge-organic" icon={<Award className="w-4 h-4" />} title="Genuine Grade" subtitle="Double Selected" />
+              <CapabilityBadge id="badge-heat-treated" icon={<ShieldCheck className="w-4 h-4" />} title="HWT Certified" subtitle="Import Approved" />
             </div>
 
             {/* CTAs */}
@@ -565,47 +509,10 @@ export default function App() {
       <section id="highlights" className="bg-[#041107] py-10 px-4 md:px-8 border-b border-gold-800/10">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            <div className="flex gap-4 items-start p-4 hover:bg-forest-900/10 rounded transition-all">
-              <div className="flex-shrink-0 w-10 h-10 rounded-full border border-gold-300 bg-gold-500/10 flex items-center justify-center text-gold-400">
-                <CheckCircle2 className="w-5 h-5" />
-              </div>
-              <div>
-                <dt className="text-white font-bold text-sm uppercase tracking-wide">{t('natural100')}</dt>
-                <dd className="text-gray-400 text-xs mt-1 leading-relaxed">{t('naturalDesc')}</dd>
-              </div>
-            </div>
-
-            <div className="flex gap-4 items-start p-4 hover:bg-forest-900/10 rounded transition-all">
-              <div className="flex-shrink-0 w-10 h-10 rounded-full border border-gold-300 bg-gold-500/10 flex items-center justify-center text-gold-400">
-                <Clock className="w-5 h-5" />
-              </div>
-              <div>
-                <dt className="text-white font-bold text-sm uppercase tracking-wide">{t('coldChain')}</dt>
-                <dd className="text-gray-400 text-xs mt-1 leading-relaxed">{t('coldChainDesc')}</dd>
-              </div>
-            </div>
-
-            <div className="flex gap-4 items-start p-4 hover:bg-forest-900/10 rounded transition-all">
-              <div className="flex-shrink-0 w-10 h-10 rounded-full border border-gold-300 bg-gold-500/10 flex items-center justify-center text-gold-400">
-                <ShieldCheck className="w-5 h-5" />
-              </div>
-              <div>
-                <dt className="text-white font-bold text-sm uppercase tracking-wide">Hot Water Treated</dt>
-                <dd className="text-gray-400 text-xs mt-1 leading-relaxed">HWT treatment for pest quarantine free delivery</dd>
-              </div>
-            </div>
-
-            <div className="flex gap-4 items-start p-4 hover:bg-forest-900/10 rounded transition-all">
-              <div className="flex-shrink-0 w-10 h-10 rounded-full border border-gold-300 bg-gold-500/10 flex items-center justify-center text-gold-400">
-                <Boxes className="w-5 h-5" />
-              </div>
-              <div>
-                <dt className="text-white font-bold text-sm uppercase tracking-wide">{t('premiumBox')}</dt>
-                <dd className="text-gray-400 text-xs mt-1 leading-relaxed">{t('boxDesc')}</dd>
-              </div>
-            </div>
-
+            <HighlightCard icon={<CheckCircle2 className="w-5 h-5" />} title={t('natural100')} description={t('naturalDesc')} />
+            <HighlightCard icon={<Clock className="w-5 h-5" />} title={t('coldChain')} description={t('coldChainDesc')} />
+            <HighlightCard icon={<ShieldCheck className="w-5 h-5" />} title="Hot Water Treated" description="HWT treatment for pest quarantine free delivery" />
+            <HighlightCard icon={<Boxes className="w-5 h-5" />} title={t('premiumBox')} description={t('boxDesc')} />
           </div>
         </div>
       </section>
@@ -614,15 +521,7 @@ export default function App() {
       <section id="about" className="py-20 px-4 md:px-8 bg-forest-950/80">
         <div className="max-w-7xl mx-auto space-y-16">
           
-          <div className="text-center max-w-3xl mx-auto space-y-4">
-            <h2 className="text-3xl md:text-5xl font-serif font-bold tracking-tight text-white">
-              {t('aboutTitle')}
-            </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto" />
-            <p className="text-gold-300 font-sans text-sm md:text-base italic">
-              {t('aboutSubtitle')}
-            </p>
-          </div>
+          <SectionHeader title={t('aboutTitle')} subtitle={t('aboutSubtitle')} />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
@@ -694,31 +593,9 @@ export default function App() {
 
               {/* Bento styled company values */}
               <div className="space-y-4 pt-4 border-t border-gold-800/10">
-                
-                <div className="flex gap-4">
-                  <div className="w-6 h-6 rounded-full bg-gold-500/15 flex items-center justify-center text-gold-300 text-xs shrink-0 mt-0.5">1</div>
-                  <div>
-                    <h4 className="text-sm font-bold text-gold-200">{t('aboutValue1')}</h4>
-                    <p className="text-xs text-gray-400 mt-1 leading-relaxed">{t('aboutValueDesc1')}</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="w-6 h-6 rounded-full bg-gold-500/15 flex items-center justify-center text-gold-300 text-xs shrink-0 mt-0.5">2</div>
-                  <div>
-                    <h4 className="text-sm font-bold text-gold-200">{t('aboutValue2')}</h4>
-                    <p className="text-xs text-gray-400 mt-1 leading-relaxed">{t('aboutValueDesc2')}</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="w-6 h-6 rounded-full bg-gold-500/15 flex items-center justify-center text-gold-300 text-xs shrink-0 mt-0.5">3</div>
-                  <div>
-                    <h4 className="text-sm font-bold text-gold-200">{t('aboutValue3')}</h4>
-                    <p className="text-xs text-gray-400 mt-1 leading-relaxed">{t('aboutValueDesc3')}</p>
-                  </div>
-                </div>
-
+                <NumberedValue index={1} title={t('aboutValue1')} description={t('aboutValueDesc1')} />
+                <NumberedValue index={2} title={t('aboutValue2')} description={t('aboutValueDesc2')} />
+                <NumberedValue index={3} title={t('aboutValue3')} description={t('aboutValueDesc3')} />
               </div>
 
             </div>
@@ -933,34 +810,10 @@ export default function App() {
               </h3>
               
               <ul className="space-y-4 text-xs font-sans">
-                <li className="flex gap-3 leading-relaxed">
-                  <div className="w-5 h-5 rounded-full bg-gold-400/10 flex items-center justify-center shrink-0 text-gold-300">✓</div>
-                  <div>
-                    <strong className="text-white block">Standard Carton Payload:</strong>
-                    <span>Perfect calibrated payload container of 5KG Net Weight packed neatly with anti-vibration separators.</span>
-                  </div>
-                </li>
-                <li className="flex gap-3 leading-relaxed">
-                  <div className="w-5 h-5 rounded-full bg-gold-400/10 flex items-center justify-center shrink-0 text-gold-300">✓</div>
-                  <div>
-                    <strong className="text-white block">Double Calibrating Selection:</strong>
-                    <span>Each carton holds mango fruits sized from 280g - 425g ensuring uniform retail stacking and aesthetically premium consumer boxes.</span>
-                  </div>
-                </li>
-                <li className="flex gap-3 leading-relaxed">
-                  <div className="w-5 h-5 rounded-full bg-gold-400/10 flex items-center justify-center shrink-0 text-gold-300">✓</div>
-                  <div>
-                    <strong className="text-white block">Thermal Regulation Cradling:</strong>
-                    <span>Pre-cooled to 11°C immediately after Hot Water Treatment. Loaded into thermal air freight cargo containers ensuring peak crispness on arrival.</span>
-                  </div>
-                </li>
-                <li className="flex gap-3 leading-relaxed">
-                  <div className="w-5 h-5 rounded-full bg-gold-400/10 flex items-center justify-center shrink-0 text-gold-300">✓</div>
-                  <div>
-                    <strong className="text-white block">Official Trade Mark:</strong>
-                    <span>Box design is officially registered with Ministry of Commerce and Department of Plant Protection Pakistan for genuine biometric trace.</span>
-                  </div>
-                </li>
+                <CheckListItem title="Standard Carton Payload:" description="Perfect calibrated payload container of 5KG Net Weight packed neatly with anti-vibration separators." />
+                <CheckListItem title="Double Calibrating Selection:" description="Each carton holds mango fruits sized from 280g - 425g ensuring uniform retail stacking and aesthetically premium consumer boxes." />
+                <CheckListItem title="Thermal Regulation Cradling:" description="Pre-cooled to 11°C immediately after Hot Water Treatment. Loaded into thermal air freight cargo containers ensuring peak crispness on arrival." />
+                <CheckListItem title="Official Trade Mark:" description="Box design is officially registered with Ministry of Commerce and Department of Plant Protection Pakistan for genuine biometric trace." />
               </ul>
 
               <div className="pt-2">
@@ -984,62 +837,14 @@ export default function App() {
       <section id="varieties" className="py-20 px-4 md:px-8 bg-forest-950/80">
         <div className="max-w-7xl mx-auto space-y-12">
           
-          <div className="text-center max-w-2xl mx-auto space-y-4">
-            <h2 className="text-3xl md:text-5xl font-serif font-bold text-white tracking-tight">
-              {t('varietiesTitle')}
-            </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto" />
-            <p className="text-gold-300 italic text-sm md:text-base font-sans">
-              {t('varietiesSubtitle')}
-            </p>
-          </div>
+          <SectionHeader title={t('varietiesTitle')} subtitle={t('varietiesSubtitle')} maxWidth="max-w-2xl" />
 
           {/* Interactive filter tabs for variety focus */}
           <div className="flex flex-wrap justify-center gap-2 mb-8" id="product-filter-tabs">
-            <button 
-              id="filter-all"
-              onClick={() => setActiveTab('all')}
-              className={`px-4 py-2 text-xs rounded uppercase font-bold tracking-wide transition-all ${
-                activeTab === 'all' 
-                  ? 'bg-gold-500 text-forest-950 shadow-inner font-black' 
-                  : 'bg-forest-900/60 text-gray-300 hover:text-gold-400 border border-gold-800/10'
-              }`}
-            >
-              All Varieties
-            </button>
-            <button 
-              id="filter-sindhri"
-              onClick={() => setActiveTab('sindhri')}
-              className={`px-4 py-2 text-xs rounded uppercase font-bold tracking-wide transition-all ${
-                activeTab === 'sindhri' 
-                  ? 'bg-gold-500 text-forest-950 shadow-inner font-black' 
-                  : 'bg-forest-900/60 text-gray-300 hover:text-gold-400 border border-gold-800/10'
-              }`}
-            >
-              Sindhri
-            </button>
-            <button 
-              id="filter-anwar-ratol"
-              onClick={() => setActiveTab('anwar_ratol')}
-              className={`px-4 py-2 text-xs rounded uppercase font-bold tracking-wide transition-all ${
-                activeTab === 'anwar_ratol' 
-                  ? 'bg-gold-500 text-forest-950 shadow-inner font-black' 
-                  : 'bg-forest-900/60 text-gray-300 hover:text-gold-400 border border-gold-800/10'
-              }`}
-            >
-              Anwar Ratol
-            </button>
-            <button 
-              id="filter-chaunsa"
-              onClick={() => setActiveTab('chaunsa')}
-              className={`px-4 py-2 text-xs rounded uppercase font-bold tracking-wide transition-all ${
-                activeTab === 'chaunsa' 
-                  ? 'bg-gold-500 text-forest-950 shadow-inner font-black' 
-                  : 'bg-forest-900/60 text-gray-300 hover:text-gold-400 border border-gold-800/10'
-              }`}
-            >
-              Honey Chaunsa
-            </button>
+            <ToggleButton id="filter-all" label="All Varieties" isActive={activeTab === 'all'} onClick={() => setActiveTab('all')} variant="tab" />
+            <ToggleButton id="filter-sindhri" label="Sindhri" isActive={activeTab === 'sindhri'} onClick={() => setActiveTab('sindhri')} variant="tab" />
+            <ToggleButton id="filter-anwar-ratol" label="Anwar Ratol" isActive={activeTab === 'anwar_ratol'} onClick={() => setActiveTab('anwar_ratol')} variant="tab" />
+            <ToggleButton id="filter-chaunsa" label="Honey Chaunsa" isActive={activeTab === 'chaunsa'} onClick={() => setActiveTab('chaunsa')} variant="tab" />
           </div>
 
           {/* Grid Layout of products utilizing generated images */}
@@ -1145,15 +950,7 @@ export default function App() {
       <section id="shipping" className="py-20 px-4 md:px-8 bg-[#041107] border-y border-gold-800/10">
         <div className="max-w-7xl mx-auto space-y-12">
           
-          <div className="text-center max-w-3xl mx-auto space-y-3">
-            <span className="text-xs uppercase tracking-widest font-bold text-gold-400">Priority Transit</span>
-            <h2 className="text-3xl md:text-5xl font-serif font-bold text-white tracking-tight">
-              {t('shippingTitle')}
-            </h2>
-            <p className="text-gold-300 font-sans italic text-sm md:text-base">
-              {t('shippingSubtitle')}
-            </p>
-          </div>
+          <SectionHeader title={t('shippingTitle')} subtitle={t('shippingSubtitle')} badge="Priority Transit" />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
@@ -1161,55 +958,10 @@ export default function App() {
             <div className="lg:col-span-6 space-y-6">
               
               <div className="space-y-6 relative before:absolute before:top-2 before:bottom-2 before:left-3 before:w-0.5 before:bg-gold-500/20">
-                
-                <div className="relative flex gap-4 pl-8">
-                  <div className="absolute left-1.5 top-1 w-3.5 h-3.5 rounded-full border border-gold-400 bg-forest-950 flex items-center justify-center">
-                    <div className="w-1.5 h-1.5 rounded-full bg-gold-400" />
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold uppercase text-gold-300 tracking-wider">Step 1: Morning Harvest (06:00 - 10:00)</h4>
-                    <p className="text-xs text-gray-400 mt-1 leading-relaxed">
-                      Orchard workers delicately pick top-caliber mangoes manually. The stem is trimmed to prevent sap injury.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="relative flex gap-4 pl-8">
-                  <div className="absolute left-1.5 top-1 w-3.5 h-3.5 rounded-full border border-gold-400 bg-forest-950 flex items-center justify-center">
-                    <div className="w-1.5 h-1.5 rounded-full bg-gold-400" />
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold uppercase text-gold-300 tracking-wider">Step 2: Processing & Hot Water Treatment (11:00 - 16:00)</h4>
-                    <p className="text-xs text-gray-400 mt-1 leading-relaxed">
-                      Mangoes are brought into the packing station, washed in phytosanitary lines, treated at 48°C for 60 mins (HWT), graded, and cooled to 11°C.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="relative flex gap-4 pl-8">
-                  <div className="absolute left-1.5 top-1 w-3.5 h-3.5 rounded-full border border-emerald-400 bg-forest-950 flex items-center justify-center">
-                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold uppercase text-emerald-400 tracking-wider">Step 3: Airport Transit & Air Express Cargo Departure (20:00 - Midnight)</h4>
-                    <p className="text-xs text-gray-400 mt-1 leading-relaxed">
-                      Packed robustly in 5KG cartons, mangoes are loaded into pre-cooled trucks and transferred to Lahore or Karachi Air cargo decks bound directly for UAE/Gulf cities.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="relative flex gap-4 pl-8">
-                  <div className="absolute left-1.5 top-1 w-3.5 h-3.5 rounded-full border border-indigo-400 bg-forest-950 flex items-center justify-center">
-                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold uppercase text-indigo-300 tracking-wider">Step 4: Landing & Inbound Shelling (Next day 08:00)</h4>
-                    <p className="text-xs text-gray-400 mt-1 leading-relaxed">
-                      Clearance teams extract pallets under temperature-controlled cold terminals, delivering pristine premium mangoes directly to UAE and GCC stores.
-                    </p>
-                  </div>
-                </div>
-
+                <TimelineStep title="Step 1: Morning Harvest (06:00 - 10:00)" description="Orchard workers delicately pick top-caliber mangoes manually. The stem is trimmed to prevent sap injury." />
+                <TimelineStep title="Step 2: Processing & Hot Water Treatment (11:00 - 16:00)" description="Mangoes are brought into the packing station, washed in phytosanitary lines, treated at 48°C for 60 mins (HWT), graded, and cooled to 11°C." />
+                <TimelineStep title="Step 3: Airport Transit & Air Express Cargo Departure (20:00 - Midnight)" description="Packed robustly in 5KG cartons, mangoes are loaded into pre-cooled trucks and transferred to Lahore or Karachi Air cargo decks bound directly for UAE/Gulf cities." dotColor="emerald" animate />
+                <TimelineStep title="Step 4: Landing & Inbound Shelling (Next day 08:00)" description="Clearance teams extract pallets under temperature-controlled cold terminals, delivering pristine premium mangoes directly to UAE and GCC stores." dotColor="indigo" />
               </div>
 
             </div>
@@ -1258,58 +1010,13 @@ export default function App() {
       <section id="quality" className="py-20 px-4 md:px-8 bg-forest-950/80">
         <div className="max-w-7xl mx-auto space-y-12">
           
-          <div className="text-center max-w-3xl mx-auto space-y-4">
-            <h2 className="text-3xl md:text-5xl font-serif font-bold text-white tracking-tight">
-              {t('trustTitle')}
-            </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto" />
-            <p className="text-gold-300 font-sans italic text-sm md:text-base">
-              {t('trustSubtitle')}
-            </p>
-          </div>
+          <SectionHeader title={t('trustTitle')} subtitle={t('trustSubtitle')} />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            
-            <div className="p-6 rounded-xl border border-gold-800/10 bg-[#061609] space-y-3">
-              <div className="flex gap-3 items-center text-gold-400">
-                <ShieldCheck className="w-6 h-6 shrink-0" />
-                <h3 className="text-md font-serif font-bold text-white">{t('cert1')}</h3>
-              </div>
-              <p className="text-xs text-gray-400 leading-relaxed pl-9">
-                {t('certDesc1')}
-              </p>
-            </div>
-
-            <div className="p-6 rounded-xl border border-gold-800/10 bg-[#061609] space-y-3">
-              <div className="flex gap-3 items-center text-gold-400">
-                <Award className="w-6 h-6 shrink-0" />
-                <h3 className="text-md font-serif font-bold text-white">{t('cert2')}</h3>
-              </div>
-              <p className="text-xs text-gray-400 leading-relaxed pl-9">
-                {t('certDesc2')}
-              </p>
-            </div>
-
-            <div className="p-6 rounded-xl border border-gold-800/10 bg-[#061609] space-y-3">
-              <div className="flex gap-3 items-center text-gold-400">
-                <Truck className="w-6 h-6 shrink-0" />
-                <h3 className="text-md font-serif font-bold text-white">{t('cert3')}</h3>
-              </div>
-              <p className="text-xs text-gray-400 leading-relaxed pl-9">
-                {t('certDesc3')}
-              </p>
-            </div>
-
-            <div className="p-6 rounded-xl border border-gold-800/10 bg-[#061609] space-y-3">
-              <div className="flex gap-3 items-center text-gold-400">
-                <Globe className="w-6 h-6 shrink-0" />
-                <h3 className="text-md font-serif font-bold text-white">{t('cert4')}</h3>
-              </div>
-              <p className="text-xs text-gray-400 leading-relaxed pl-9">
-                {t('certDesc4')}
-              </p>
-            </div>
-
+            <CertificationCard icon={<ShieldCheck className="w-6 h-6 shrink-0" />} title={t('cert1')} description={t('certDesc1')} />
+            <CertificationCard icon={<Award className="w-6 h-6 shrink-0" />} title={t('cert2')} description={t('certDesc2')} />
+            <CertificationCard icon={<Truck className="w-6 h-6 shrink-0" />} title={t('cert3')} description={t('certDesc3')} />
+            <CertificationCard icon={<Globe className="w-6 h-6 shrink-0" />} title={t('cert4')} description={t('certDesc4')} />
           </div>
 
           {/* Pakistan & UAE flag layout element illustrating export bridge */}
@@ -1403,119 +1110,37 @@ export default function App() {
                 <form id="export-inquiry-form" onSubmit={handleFormSubmit} className="space-y-4 text-xs">
                   
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                      <label id="label-name" className="text-gray-300 font-semibold uppercase">{t('formName')} *</label>
-                      <input 
-                        required
-                        type="text" 
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        placeholder="e.g. Salim Al Mansoori"
-                        className="w-full p-3 bg-forest-950 border border-gold-800/40 rounded text-white focus:border-gold-400 focus:outline-none transition-colors"
-                      />
-                    </div>
-                    <div className="space-y-1.5">
-                      <label id="label-company" className="text-gray-300 font-semibold uppercase">{t('formCompany')} *</label>
-                      <input 
-                        required
-                        type="text" 
-                        name="company"
-                        value={formData.company}
-                        onChange={handleInputChange}
-                        placeholder="e.g. Gulf Fresh Fruits LLC"
-                        className="w-full p-3 bg-forest-950 border border-gold-800/40 rounded text-white focus:border-gold-400 focus:outline-none transition-colors"
-                      />
-                    </div>
+                    <FormField id="label-name" label={`${t('formName')} *`} name="name" value={formData.name} onChange={handleInputChange} required placeholder="e.g. Salim Al Mansoori" />
+                    <FormField id="label-company" label={`${t('formCompany')} *`} name="company" value={formData.company} onChange={handleInputChange} required placeholder="e.g. Gulf Fresh Fruits LLC" />
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                      <label id="label-email" className="text-gray-300 font-semibold uppercase">{t('formEmail')} *</label>
-                      <input 
-                        required
-                        type="email" 
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        placeholder="e.g. import@gulffresh.ae"
-                        className="w-full p-3 bg-forest-950 border border-gold-800/40 rounded text-white focus:border-gold-400 focus:outline-none transition-colors"
-                      />
-                    </div>
-                    <div className="space-y-1.5">
-                      <label id="label-phone" className="text-gray-300 font-semibold uppercase">{t('formPhone')} *</label>
-                      <input 
-                        required
-                        type="text" 
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        placeholder="e.g. +971 50 1234567"
-                        className="w-full p-3 bg-forest-950 border border-gold-800/40 rounded text-white focus:border-gold-400 focus:outline-none transition-colors"
-                      />
-                    </div>
+                    <FormField id="label-email" label={`${t('formEmail')} *`} name="email" type="email" value={formData.email} onChange={handleInputChange} required placeholder="e.g. import@gulffresh.ae" />
+                    <FormField id="label-phone" label={`${t('formPhone')} *`} name="phone" value={formData.phone} onChange={handleInputChange} required placeholder="e.g. +971 50 1234567" />
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    
-                    <div className="space-y-1.5">
-                      <label id="label-country" className="text-gray-300 font-semibold uppercase">{t('formCountry')}</label>
-                      <select 
-                        name="country"
-                        value={formData.country}
-                        onChange={handleInputChange}
-                        className="w-full p-3 bg-forest-950 border border-gold-800/40 rounded text-white focus:border-gold-400 focus:outline-none transition-colors"
-                      >
-                        <option value="United Arab Emirates">United Arab Emirates (🇦🇪)</option>
-                        <option value="Saudi Arabia">Saudi Arabia (🇸🇦)</option>
-                        <option value="Qatar">Qatar (🇶🇦)</option>
-                        <option value="Kuwait">Kuwait (🇰🇼)</option>
-                        <option value="Oman">Oman (🇴🇲)</option>
-                        <option value="Bahrain">Bahrain (🇧🇭)</option>
-                        <option value="Other">Other Global Market</option>
-                      </select>
-                    </div>
+                    <FormField id="label-country" label={t('formCountry')} name="country" value={formData.country} onChange={handleInputChange} as="select">
+                      <option value="United Arab Emirates">United Arab Emirates (🇦🇪)</option>
+                      <option value="Saudi Arabia">Saudi Arabia (🇸🇦)</option>
+                      <option value="Qatar">Qatar (🇶🇦)</option>
+                      <option value="Kuwait">Kuwait (🇰🇼)</option>
+                      <option value="Oman">Oman (🇴🇲)</option>
+                      <option value="Bahrain">Bahrain (🇧🇭)</option>
+                      <option value="Other">Other Global Market</option>
+                    </FormField>
 
-                    <div className="space-y-1.5">
-                      <label id="label-variety" className="text-gray-300 font-semibold uppercase">{t('formVariety')}</label>
-                      <select 
-                        name="variety"
-                        value={formData.variety}
-                        onChange={handleInputChange}
-                        className="w-full p-3 bg-forest-950 border border-gold-800/40 rounded text-white focus:border-gold-400 focus:outline-none transition-colors"
-                      >
-                        <option value="all">{t('otherVariety')}</option>
-                        <option value="sindhri">Sindhri</option>
-                        <option value="anwar_ratol">Anwar Ratol</option>
-                        <option value="chaunsa">Honey Chaunsa</option>
-                      </select>
-                    </div>
+                    <FormField id="label-variety" label={t('formVariety')} name="variety" value={formData.variety} onChange={handleInputChange} as="select">
+                      <option value="all">{t('otherVariety')}</option>
+                      <option value="sindhri">Sindhri</option>
+                      <option value="anwar_ratol">Anwar Ratol</option>
+                      <option value="chaunsa">Honey Chaunsa</option>
+                    </FormField>
 
-                    <div className="space-y-1.5">
-                      <label id="label-quantity" className="text-gray-300 font-semibold uppercase">{t('formQuantity')}</label>
-                      <input 
-                        type="text" 
-                        name="quantity"
-                        value={formData.quantity}
-                        onChange={handleInputChange}
-                        placeholder="e.g. 500 Cartons / 2.5 Tons"
-                        className="w-full p-3 bg-forest-950 border border-gold-800/40 rounded text-white focus:border-gold-400 focus:outline-none transition-colors"
-                      />
-                    </div>
-
+                    <FormField id="label-quantity" label={t('formQuantity')} name="quantity" value={formData.quantity} onChange={handleInputChange} placeholder="e.g. 500 Cartons / 2.5 Tons" />
                   </div>
 
-                  <div className="space-y-1.5">
-                    <label id="label-message" className="text-gray-300 font-semibold uppercase">{t('formMessage')}</label>
-                    <textarea 
-                      rows={4}
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      placeholder="Specify packaging adjustments, delivery port preferences or certificates timing request here..."
-                      className="w-full p-3 bg-forest-950 border border-gold-800/40 rounded text-white focus:border-gold-400 focus:outline-none transition-colors"
-                    />
-                  </div>
+                  <FormField id="label-message" label={t('formMessage')} name="message" value={formData.message} onChange={handleInputChange} as="textarea" rows={4} placeholder="Specify packaging adjustments, delivery port preferences or certificates timing request here..." />
 
                   <div className="pt-4 flex flex-col sm:flex-row gap-3">
                     <button 
@@ -1600,34 +1225,18 @@ export default function App() {
                 </h3>
 
                 <ul className="space-y-3">
-                  <li className="flex gap-2.5 items-start">
-                    <MapPin className="w-4 h-4 text-gold-400 shrink-0 mt-0.5" />
-                    <div>
-                      <strong className="text-white block">Multan Processing Plant:</strong>
-                      <span className="text-gray-400">Pull Shala, Old Dunyapur Road, Multan, Pakistan</span>
-                    </div>
-                  </li>
-                  <li className="flex gap-2.5 items-start">
-                    <Phone className="w-4 h-4 text-gold-400 shrink-0 mt-0.5" />
-                    <div>
-                      <strong className="text-white block">Export Hotline / WhatsApp:</strong>
-                      <span className="text-emerald-400 font-bold select-all">+92 300 6872012</span>
-                    </div>
-                  </li>
-                  <li className="flex gap-2.5 items-start">
-                    <Mail className="w-4 h-4 text-gold-400 shrink-0 mt-0.5" />
-                    <div>
-                      <strong className="text-white block">Official Trade Email:</strong>
-                      <span className="text-gray-400 select-all">info@zyvexglobal.com</span>
-                    </div>
-                  </li>
-                  <li className="flex gap-2.5 items-start">
-                    <Globe className="w-4 h-4 text-gold-400 shrink-0" />
-                    <div>
-                      <strong className="text-white block">Trade Website:</strong>
-                      <span className="text-gray-400 select-all">www.zyvexglobal.com</span>
-                    </div>
-                  </li>
+                  <ContactItem icon={<MapPin className="w-4 h-4 text-gold-400 shrink-0 mt-0.5" />} label="Multan Processing Plant:">
+                    <span className="text-gray-400">Pull Shala, Old Dunyapur Road, Multan, Pakistan</span>
+                  </ContactItem>
+                  <ContactItem icon={<Phone className="w-4 h-4 text-gold-400 shrink-0 mt-0.5" />} label="Export Hotline / WhatsApp:">
+                    <span className="text-emerald-400 font-bold select-all">+92 300 6872012</span>
+                  </ContactItem>
+                  <ContactItem icon={<Mail className="w-4 h-4 text-gold-400 shrink-0 mt-0.5" />} label="Official Trade Email:">
+                    <span className="text-gray-400 select-all">info@zyvexglobal.com</span>
+                  </ContactItem>
+                  <ContactItem icon={<Globe className="w-4 h-4 text-gold-400 shrink-0" />} label="Trade Website:">
+                    <span className="text-gray-400 select-all">www.zyvexglobal.com</span>
+                  </ContactItem>
                 </ul>
               </div>
 
