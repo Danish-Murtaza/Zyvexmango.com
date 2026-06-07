@@ -28,7 +28,7 @@ export const mangoVarieties: MangoVariety[] = [
       ur: '5 کلو گرام کا مضبوط کارٹن ڈبہ، مخصوص فارم اور حفاظتی شیٹس',
       ar: 'كرتون قوي بوزن 5 كجم، مع فواصل مخصصة وحواجز لمنع الارتطام'
     },
-    image: 'http://www.mangonation.pk/wp-content/uploads/2020/05/export-quality-premium-sindhri-mangoes-shop-online-pakistan-ws-2.jpg',
+    image: 'https://www.mangonation.pk/wp-content/uploads/2020/05/export-quality-premium-sindhri-mangoes-shop-online-pakistan-ws-2.jpg',
     grade: {
       en: 'Primary Export Quality Grade A+',
       ur: 'پرائمری ایکسپورٹ کوالٹی گریڈ A+',
