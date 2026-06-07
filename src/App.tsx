@@ -291,11 +291,15 @@ export default function App() {
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif leading-tight font-bold text-white tracking-tight">
-              Premium Pakistani <br className="hidden md:inline" />
-              <span className="luxury-gold-shimmer font-serif italic text-gold-300 block my-1">
-                Mango Exports
-              </span>
-              to UAE & Gulf Markets
+              {lang === 'en' ? (
+                <>
+                  Premium Multani Mangoes – <br className="hidden md:inline" />
+                  <span className="luxury-gold-shimmer font-serif italic text-gold-300 block my-1">
+                    From Our Orchards
+                  </span>
+                  to the World
+                </>
+              ) : t('heroHeading')}
             </h1>
 
             <p className="text-gray-300 text-sm md:text-base leading-relaxed max-w-xl font-sans">
@@ -349,23 +353,24 @@ export default function App() {
             <div className="flex flex-wrap items-center gap-4 pt-4">
               <button 
                 id="hero-order-btn"
-                onClick={() => scrollToInquiry()}
+                onClick={() => {
+                  const target = document.getElementById('paths-section');
+                  target?.scrollIntoView({ behavior: 'smooth' });
+                }}
                 className="px-6 py-3 rounded-md bg-gradient-to-r from-gold-600 to-gold-400 hover:from-gold-500 hover:to-gold-300 text-forest-950 font-semibold text-sm transition-all flex items-center gap-2 group shadow-lg shadow-gold-500/10 uppercase tracking-wider font-sans cursor-pointer"
               >
-                <span>{t('orderNow')}</span>
+                <span>{t('orderLocally')}</span>
                 <ArrowRight className={`w-4 h-4 transition-transform group-hover:translate-x-1 ${isRTL ? 'rotate-180 group-hover:-translate-x-1' : ''}`} />
               </button>
 
-              <a 
-                id="hero-whatsapp-btn"
-                href={getWhatsAppLink('Hello Zyvex Trading! I am an importer. I saw your website and would like to request FOB/CNF air cargo pricing for your export mangoes.')}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-3 rounded-md bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm transition-all flex items-center gap-2 shadow-lg shadow-emerald-500/10 uppercase tracking-wider font-sans"
+              <button 
+                id="hero-export-btn"
+                onClick={() => scrollToInquiry()}
+                className="px-6 py-3 rounded-md border border-gold-400/50 bg-forest-900/40 hover:bg-forest-900/70 text-gold-300 hover:text-gold-200 font-semibold text-sm transition-all flex items-center gap-2 shadow-lg tracking-wider font-sans cursor-pointer uppercase"
               >
-                <Phone className="w-4 h-4" />
-                <span>{t('whatsAppUs')}</span>
-              </a>
+                <Mail className="w-4 h-4 text-gold-400" />
+                <span>{t('inquireExport')}</span>
+              </button>
             </div>
 
           </div>
@@ -380,7 +385,7 @@ export default function App() {
                 
                 {/* The Generated Luxury Banner */}
                 <img 
-                  src="/src/assets/images/zyvex_hero_1780756788201.png" 
+                  src="https://multanpoint.com/wp-content/uploads/2025/07/White-Chaunsa-scaled.webp" 
                   alt="Zyvex premium mangoes banner" 
                   className="w-full object-cover aspect-video md:aspect-[4/3] scale-100 group-hover:scale-102 transition-transform duration-700"
                   referrerPolicy="no-referrer"
@@ -434,10 +439,125 @@ export default function App() {
             
             {/* Tiny tag showing the direct exporter specs */}
             <div className="absolute -bottom-6 -left-4 bg-gradient-to-r from-gold-600 to-gold-700 text-forest-950 px-4 py-2 rounded-lg font-bold text-xs uppercase tracking-wider shadow-lg border border-gold-400 font-sans">
-              🇵🇰 🛫 🇦🇪 Daily Cargo Reach
+              🇵🇰 🛫 🌍 Global & Domestic Deliveries
             </div>
           </div>
 
+        </div>
+      </section>
+
+      {/* THREE PATHS / SECTIONS: Domestic & Global Export */}
+      <section id="paths-section" className="py-16 md:py-20 px-4 md:px-8 bg-[#041206] border-b border-gold-800/10">
+        <div className="max-w-7xl mx-auto space-y-12">
+          
+          <div className="text-center max-w-2xl mx-auto space-y-3">
+            <span className="text-xs uppercase tracking-widest font-bold text-gold-400">Sourcing Channels</span>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-white tracking-tight">
+              Flexible Mango Sourcing Paths
+            </h2>
+            <div className="w-16 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto" />
+            <p className="text-xs text-gray-400 font-sans">
+              Choose between prompt express door-step deliveries across Pakistan or certified air/sea freight global export distributions.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+            
+            {/* Section A: Domestic Delivery (Pakistan) */}
+            <div id="path-domestic" className="p-8 md:p-10 rounded-2xl border border-gold-800/20 bg-[#051107] flex flex-col justify-between space-y-6 hover:border-gold-500/40 transition-all duration-300">
+              <div className="space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-800 bg-emerald-950/40 text-[10px] text-emerald-400 font-bold uppercase tracking-wide font-sans">
+                  <span>🇵🇰</span>
+                  <span>Premium Local Delivery</span>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-serif font-bold text-white leading-tight">
+                  {t('domesticPathTitle')}
+                </h2>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  {t('domesticPathDesc')}
+                </p>
+                <div className="space-y-2.5 pt-4 border-t border-gold-900/15">
+                  <div className="flex items-center gap-2.5 text-xs text-gray-300">
+                    <span className="text-emerald-400 text-base">✓</span>
+                    <span>Same-day hand-picking directly from Multan orchards</span>
+                  </div>
+                  <div className="flex items-center gap-2.5 text-xs text-gray-300">
+                    <span className="text-emerald-400 text-base">✓</span>
+                    <span>Carbide-Free safe ripening process for absolute purity</span>
+                  </div>
+                  <div className="flex items-center gap-2.5 text-xs text-gray-300">
+                    <span className="text-emerald-400 text-base">✓</span>
+                    <span>Beautiful 5kg & 10kg anti-bruise gift packing</span>
+                  </div>
+                </div>
+              </div>
+              <div className="pt-4">
+                <a 
+                  id="local-order-whatsapp-btn"
+                  href={`https://wa.me/923006872012?text=${encodeURIComponent("Salam Zyvex! I would like to order premium Multani Mango gift boxes for domestic delivery within Pakistan. Please provide details of 5kg & 10kg box pricing.")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider transition-all shadow shadow-emerald-500/10 font-sans cursor-pointer hover:scale-102"
+                >
+                  <Phone className="w-4 h-4" />
+                  <span>Order on WhatsApp (Pakistan)</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Section B: Global Export Services */}
+            <div id="path-export" className="p-8 md:p-10 rounded-2xl border border-gold-800/30 bg-[#051107] flex flex-col justify-between space-y-6 hover:border-gold-500/40 transition-all duration-300 relative overflow-hidden group">
+              <div className="space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gold-800/40 bg-gold-950/20 text-[10px] text-gold-400 font-bold uppercase tracking-wide font-sans">
+                  <span>🌍</span>
+                  <span>International Air Freight</span>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-serif font-bold text-white leading-tight">
+                  {t('exportPathTitle')}
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start">
+                  <div className="md:col-span-7 space-y-4">
+                    <p className="text-gray-300 text-sm leading-relaxed">
+                      {t('exportPathDesc')}
+                    </p>
+                    <div className="space-y-2.5 pt-4 border-t border-gold-900/15">
+                      <div className="flex items-center gap-2.5 text-xs text-gray-300">
+                        <span className="text-gold-400 text-base">✓</span>
+                        <span>Hot Water Treatment (HWT) certified operations</span>
+                      </div>
+                      <div className="flex items-center gap-2.5 text-xs text-gray-300">
+                        <span className="text-gold-400 text-base">✓</span>
+                        <span>Full adherence to DPP and quarantine certifications</span>
+                      </div>
+                      <div className="flex items-center gap-2.5 text-xs text-gray-300">
+                        <span className="text-gold-400 text-base">✓</span>
+                        <span>Bespoke high-strength anti-crush cartons</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="md:col-span-5 relative rounded-lg overflow-hidden border border-gold-500/30 shadow-md">
+                    <img 
+                      src="/src/assets/images/WhatsApp Image 2026-05-27 at 4,08,21 PM (1)-1.jpeg" 
+                      alt="Export quality premium displays" 
+                      className="w-full object-cover aspect-[4/3] group-hover:scale-105 transition-transform duration-500"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="pt-4">
+                <button 
+                  id="export-inquiry-btn"
+                  onClick={() => scrollToInquiry()}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-gold-600 to-gold-400 hover:from-gold-500 hover:to-gold-300 text-forest-950 font-bold text-xs uppercase tracking-wider transition-all shadow shadow-gold-500/10 font-sans cursor-pointer hover:scale-102"
+                >
+                  <Mail className="w-4 h-4" />
+                  <span>Request Export Quote</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
 
